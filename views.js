@@ -28,7 +28,13 @@ function LandingPageView(){
             boxChild.textContent
         }
     }
-        box.appendChild(`<ul>${model.questions[i].question}</ul>`);
+    let list = document.createElement("ul")
+    list.textContent = model.questions[i].question
+
+    listElement = document.createElement("li")
+
+    list.appendChild(listElement)
+    box.appendChild(list);
     
 
     container.appendChild(box)

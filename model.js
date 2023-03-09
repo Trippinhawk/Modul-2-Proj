@@ -47,7 +47,8 @@ const model={
             answers: [
                 {
                     title: 'svar1',
-                    counter: 0
+                    counter: 0,
+                    checked: true,
                 }
             ],
             textBox: false,
@@ -61,7 +62,8 @@ const model={
             answers: [
                 {
                     title:'svar1',
-                    counter:0
+                    counter:0,
+                    checked: true,
                 }
             ],
             textBox: false,

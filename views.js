@@ -138,21 +138,25 @@ function ResultPageView(){
     let container = document.createElement("div")
 
     let utloging = document.createElement("button")
+    utloging.textContent = 'Log Ut'
     utloging.onclick = function(){
         logout()
     }
 
     let getPdf = document.createElement("button")
+    getPdf.textContent = 'Lagre PDF'
     getPdf.onclick = function(){
         createPdf()
     }
 
     let shareLink = document.createElement("button")
+    shareLink.textContent = 'Del Link'
     shareLink.onclick = function(){
         generateLink()
     }
 
     let settings = document.createElement("button")
+    settings.textContent = 'Innstillinger'
     settings.onclick = function(){
         goToSettings()
     }
@@ -202,6 +206,7 @@ function ResultPageView(){
             
 
             let deleteButton = document.createElement("button")
+            deleteButton.textContent = 'Slett Poll'
             deleteButton.onclick = function(){
                 deleteQuestion(i)
             }
@@ -213,6 +218,7 @@ function ResultPageView(){
             }
 
             let openPoll = document.createElement("button")
+            openPoll.textContent = 'Gjenåpne Poll'
             openPoll.onclick = function(){
                 reOpenPoll(i)
             } 
@@ -235,7 +241,7 @@ function ResultPageView(){
     container.appendChild(qBox)
     
     
-    
+    return container;
     
     
     

@@ -183,6 +183,10 @@ function ResultPageView(){
             let countPercent = document.createElement("label")
             countPercent.textContent = `${model.questions[i].answers[j].counter / voteCount * 100} %`
 
+            if (voteCount == 0){
+                countPercent.textContent = '0%'
+            }
+
             let percentBarParent = document.createElement("div")
 
             let percentBar = document.createElement("div")

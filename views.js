@@ -1,15 +1,15 @@
 
 
 const infoDiv = document.getElementById('app');
-
+updateView();
 function updateView(){
-    infoDiv.innerHTML = ""
-
+    infoDiv.innerHTML = "";
     switch(model.app.currentView){
         case "LandingPage":
             infoDiv.appendChild(LandingPageView())
             break
-        case "AddQuestion":
+        case "SettingsPage":
+            infoDiv.appendChild(lagetQuestions())
             infoDiv.appendChild(addQuestionView())
             break
     }
@@ -17,22 +17,17 @@ function updateView(){
 }
 function LandingPageView(){
     let container = document.createElement("div")
-
     for (let i = 0; i<model.questions.length; i++){
         let box = document.createElement("div")
         box.className="QuestionContainer"
         box.textContent = model.questions[i].question
-
         let list = document.createElement("div")
-
         for(let j=0;j<model.questions[i].answers.length;j++){
             let boxChild = document.createElement("div")
             boxChild.textContent = model.questions[i].answers[j].title
-
             let inputBoks = document.createElement("input")
             inputBoks.setAttribute("type","checkbox")
             inputBoks.textContent = model.questions[i].answers[j].title
-            
             list.appendChild(inputBoks)
             box.appendChild(list)
         }
@@ -46,45 +41,44 @@ let container = document.createElement("div");
 container.className = "AddQuestion";
 
 
-let questionText = document.createElement("label")
-questionText.setAttribute("for","questionInput");
-questionText.textContent = "Spørsmål: ";
-container.appendChild(questionText)
+    let questionText = document.createElement("label")
+    questionText.setAttribute("for","questionInput");
+    questionText.textContent = "Spørsmål: ";
+    container.appendChild(questionText)
 
-let questionInput = document.createElement("input");
-questionInput.setAttribute("type", "text");
-questionInput.setAttribute("placeholder", "Skriv spørsmålet her")
-questionInput.onchange= function(){
+    let questionInput = document.createElement("input");
+    questionInput.setAttribute("type", "text");
+    questionInput.setAttribute("placeholder", "Skriv spørsmålet her")
+    questionInput.onchange= function(){
     model.inputs.adminPage.settingsPage.addQuestion.question = questionInput.value;
-}
+    }
 
-container.appendChild(questionInput);
+    container.appendChild(questionInput);
 
-let answerInputContainer = document.createElement("div");
-answerInputContainer.className = "AnswerInputContainer";
-
-
-let answerText = document.createElement("label");
-answerText.setAttribute("for","answerInput")
-answerText.textContent = "Legg til svar: ";
-container.appendChild(answerText);
+    let answerInputContainer = document.createElement("div");
+    answerInputContainer.className = "AnswerInputContainer";
 
 
+    let answerText = document.createElement("label");
+    answerText.setAttribute("for","answerInput")
+    answerText.textContent = "Legg til svar: ";
+    container.appendChild(answerText);
 
-let answerInput = document.createElement("input");
-answerInput.setAttribute("type", "text");
-answerInput.setAttribute("placeholder", "Skriv svar alternativer her")
-container.appendChild(answerInput);
-answerInput.onchange=function() {
-    model.inputs.adminPage.settingsPage.addQuestion.addAnswer = answerInput.value;
-}
+
+
+    let answerInput = document.createElement("input");
+    answerInput.setAttribute("type", "text");
+    answerInput.setAttribute("placeholder", "Skriv svar alternativer her")
+    container.appendChild(answerInput);
+    answerInput.onchange=function() {
+        model.inputs.adminPage.settingsPage.addQuestion.answers.push({title:answerInput.value, counter:0});
+    }
 
 
 let addAnswer = document.createElement("button")
 addAnswer.textContent = "Legg til svar"
 answerInputContainer.appendChild(addAnswer);
 container.appendChild(answerInputContainer);
-let flag = false;
 addAnswer.onclick=function() {
     if(answerInput.value !== "")
     model.inputs.adminPage.settingsPage.addQuestion.answers.push({title:answerInput.value, counter:0});
@@ -97,45 +91,44 @@ deadlineText.setAttribute("for", "deadlineInput");
 deadlineText.textContent="sett deadline her! ";
 container.appendChild(deadlineText);
 
-let deadlineInput = document.createElement("input");
-deadlineInput.setAttribute("type","date")
-deadlineInput.setAttribute("placeholder","skriv inn tidsfrist:");
-deadlineInput.setAttribute("value", model.inputs.adminPage.settingsPage.addQuestion.deadLineTo)
-deadlineInput.setAttribute("id", "deadlineInput");
-deadlineInput.onchange= function (){
-    model.inputs.adminPage.settingsPage.addQuestion.deadLineTo = deadlineInput.value;
-};
-container.appendChild(deadlineInput);
+    let deadlineInput = document.createElement("input");
+    deadlineInput.setAttribute("type","date")
+    deadlineInput.setAttribute("placeholder","skriv inn tidsfrist:");
+    deadlineInput.setAttribute("value", model.inputs.adminPage.settingsPage.addQuestion.deadLineTo)
+    deadlineInput.setAttribute("id", "deadlineInput");
+    deadlineInput.onchange= function (){
+        model.inputs.adminPage.settingsPage.addQuestion.deadLineTo = deadlineInput.value;
+    };
+    container.appendChild(deadlineInput);
 
-let creativecontainer = document.createElement("div");
-container.appendChild(creativecontainer);
+    let creativecontainer = document.createElement("div");
+    container.appendChild(creativecontainer);
 
-let labelForCreative = document.createElement("label");
-labelForCreative.setAttribute("for", "creativetext");
-labelForCreative.textContent="Egendefinerte svar? ";
-creativecontainer.appendChild(labelForCreative);
+    let labelForCreative = document.createElement("label");
+    labelForCreative.setAttribute("for", "creativetext");
+    labelForCreative.textContent="Egendefinerte svar? ";
+    creativecontainer.appendChild(labelForCreative);
 
-let creativetext = document.createElement("input");
-creativetext.setAttribute("type", "checkbox");
-creativetext.textContent = "Tillat eget svar";
-creativetext.oninput = function(){
-if (creativetext.checked)
-{model.inputs.adminPage.settingsPage.addQuestion.textBox = true}
-else {model.inputs.adminPage.settingsPage.addQuestion.textBox = false;}
-}
-creativecontainer.appendChild(creativetext);
+    let creativetext = document.createElement("input");
+    creativetext.setAttribute("type", "checkbox");
+    creativetext.textContent = "Tillat eget svar";
+    creativetext.oninput = function(){
+        if (creativetext.checked){
+            model.inputs.adminPage.settingsPage.addQuestion.textBox = true
+        }
+        else {
+            model.inputs.adminPage.settingsPage.addQuestion.textBox = false;
+        }
+    }
+    creativecontainer.appendChild(creativetext);
 
-let createPoll = document.createElement("button")
-createPoll.textContent = "Lagre meningsmåling";
-createPoll.onclick = function (){createPoll()
-   
-}
-container.appendChild(createPoll);
-
-
-
-return container;
-
+    let createPoll = document.createElement("button")
+    createPoll.textContent = "Lagre meningsmåling";
+    createPoll.onclick = function (){
+        createPoll()
+    }
+    container.appendChild(createPoll);
+    return container;
 }
 
 
@@ -145,21 +138,25 @@ function ResultPageView(){
     let container = document.createElement("div")
 
     let utloging = document.createElement("button")
+    utloging.textContent = 'Log Ut'
     utloging.onclick = function(){
         logout()
     }
 
     let getPdf = document.createElement("button")
+    getPdf.textContent = 'Lagre PDF'
     getPdf.onclick = function(){
         createPdf()
     }
 
     let shareLink = document.createElement("button")
+    shareLink.textContent = 'Del Link'
     shareLink.onclick = function(){
         generateLink()
     }
 
     let settings = document.createElement("button")
+    settings.textContent = 'Innstillinger'
     settings.onclick = function(){
         goToSettings()
     }
@@ -189,6 +186,10 @@ function ResultPageView(){
             let countPercent = document.createElement("label")
             countPercent.textContent = `${model.questions[i].answers[j].counter / voteCount * 100} %`
 
+            if (voteCount == 0){
+                countPercent.textContent = '0%'
+            }
+
             let percentBarParent = document.createElement("div")
 
             let percentBar = document.createElement("div")
@@ -209,6 +210,7 @@ function ResultPageView(){
             
 
             let deleteButton = document.createElement("button")
+            deleteButton.textContent = 'Slett Poll'
             deleteButton.onclick = function(){
                 deleteQuestion(i)
             }
@@ -220,6 +222,7 @@ function ResultPageView(){
             }
 
             let openPoll = document.createElement("button")
+            openPoll.textContent = 'Gjenåpne Poll'
             openPoll.onclick = function(){
                 reOpenPoll(i)
             } 
@@ -242,7 +245,7 @@ function ResultPageView(){
     container.appendChild(qBox)
     
     
-    
+    return container;
     
     
     

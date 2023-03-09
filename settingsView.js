@@ -21,10 +21,8 @@ function lagetQuestions(){
             let deleteAnswerButton = document.createElement('button');
             deleteAnswerButton.className = 'deleteAnswerButtons';
             deleteAnswerButton.textContent = ' X ';
-            deleteAnswerButton.onclick = function(){
-                model.questions[i].answers.splice(j, 1);
-                updateView();
-            };
+            deleteAnswerButton.setAttribute('onclick', `deleteAnswerAdmin(${i}, ${j})`)
+            
             
             
             boxChild.appendChild(deleteAnswerButton);
@@ -38,9 +36,8 @@ function lagetQuestions(){
         let giTillatBoks = document.createElement('input');
         giTillatBoks.setAttribute('type', 'checkbox');
         giTillatBoks.checked = model.questions[i].textBox;
-        giTillatBoks.onchange = function(){
-            model.questions[i].textBox = giTillatBoks.checked;
-        };
+        giTillatBoks.setAttribute('onchange', `giTillatBoksChange(${i}, this.checked)`);
+  
 
         giTillatText.appendChild(giTillatBoks);
 
@@ -49,15 +46,8 @@ function lagetQuestions(){
 
         let nyttSvarBoks = document.createElement('input');
         nyttSvarBoks.setAttribute('type', 'text');
-        nyttSvarBoks.onchange = function(){
-            let newAnswer =    {
-                title: nyttSvarBoks.value,
-                counter:0,
-                checked: true,
-            };
-            model.questions[i].answers.push(newAnswer);
-            updateView();
-        }; 
+        nyttSvarBoks.setAttribute('onchange', `nyttSvarInput(${i}, this.value)`);
+
 
         nyttSvar.appendChild(nyttSvarBoks);
 
@@ -65,43 +55,39 @@ function lagetQuestions(){
         tid.textContent = 'Deadline: ';
         tid.style.display = 'inline';
 
+        let deadlineNow = document.createElement('span');
+        deadlineNow.textContent = model.questions[i].deadline + ' ';
+
+        tid.appendChild(deadlineNow);
+
         let tidinput = document.createElement('input');
         tidinput.setAttribute('type', 'date');
-        tidinput.oninput = function(){
-            model.questions[i].deadline = tidinput.value;
-            
-        };
+        tidinput.setAttribute('oninput', `newDeadline(${i}, this.value)`);
+
         
         tid.appendChild(tidinput);
 
-        let tidEndreButton = document.createElement('button');
-        tidEndreButton.textContent = 'Endre';
-        tidEndreButton.onclick = function(){
-            tidEndreButton.textContent = 'Save';
-            updateView();
+        // let tidEndreButton = document.createElement('button');
+        // tidEndreButton.textContent = 'Endre';
+        // tidEndreButton.setAttribute('onclick', `endreDato(${i}, ${tid})`)
+        // // tidEndreButton.onclick = function(){
+        // //     tidEndreButton.textContent = 'Save';
+        // //     updateView();
 
-        };
+        // // };
        
 
-        tid.appendChild(tidEndreButton);
+        //tid.appendChild(tidEndreButton);
 
         let låsEllerÅpen = document.createElement('button');
         if (model.questions[i].available) {
             låsEllerÅpen.textContent = 'Lås avstemning';
-            låsEllerÅpen.onclick = function(){
-                model.questions[i].available = false;
-                updateView();
-
-            };
+            låsEllerÅpen.setAttribute('onclick', `closeOrOpen(${i})`);
             
         }
         else {
             låsEllerÅpen.textContent = 'Åpen avstemning';
-            låsEllerÅpen.onclick = function(){
-                model.questions[i].available = true;
-                updateView();
-
-            };
+            låsEllerÅpen.setAttribute('onclick', `closeOrOpen(${i})`);
         }
 
 

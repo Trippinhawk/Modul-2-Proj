@@ -1,7 +1,7 @@
 const model={
     //view
     app:{
-        currentView:'LandingPage',
+        currentView:'SettingsPage',
         currentUser:null,
     },
     //input

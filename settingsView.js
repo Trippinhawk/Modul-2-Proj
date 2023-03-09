@@ -62,7 +62,7 @@ function lagetQuestions(){
 
         let tidinput = document.createElement('input');
         tidinput.setAttribute('type', 'date');
-        tidinput.setAttribute('oninput', `newDeadline(${i}, this.value)`);
+        tidinput.setAttribute('onchange', `newDeadline(${i}, this.value)`);
 
         
         tid.appendChild(tidinput);

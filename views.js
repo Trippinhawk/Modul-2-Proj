@@ -118,12 +118,19 @@ creativecontainer.appendChild(labelForCreative);
 let creativetext = document.createElement("input");
 creativetext.setAttribute("type", "checkbox");
 creativetext.textContent = "Tillat eget svar";
-creativetext.onchange = function(){
+creativetext.oninput = function(){
 if (creativetext.checked)
 {model.inputs.adminPage.settingsPage.addQuestion.textBox = true}
 else {model.inputs.adminPage.settingsPage.addQuestion.textBox = false;}
 }
 creativecontainer.appendChild(creativetext);
+
+let createPoll = document.createElement("button")
+createPoll.textContent = "Lagre meningsmåling";
+createPoll.onclick = function (){createPoll()
+   
+}
+container.appendChild(createPoll);
 
 
 

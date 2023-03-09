@@ -4,12 +4,13 @@ const infoDiv = document.getElementById('app');
 updateView();
 function updateView(){
     infoDiv.innerHTML = "";
-
-    infoDiv.appendChild(lagetQuestions());
-
     switch(model.app.currentView){
         case "LandingPage":
             infoDiv.appendChild(LandingPageView())
+            break
+        case "SettingsPage":
+            infoDiv.appendChild(lagetQuestions())
+            infoDiv.appendChild(addQuestionView())
             break
     }
     
@@ -35,10 +36,9 @@ function LandingPageView(){
     return container
 }
 function addQuestionView(){
-    model.app.currentView = "AddQuestion";
 
-    let container = document.createElement("div");
-    container.className = "AddQuestion";
+let container = document.createElement("div");
+container.className = "AddQuestion";
 
 
     let questionText = document.createElement("label")
@@ -75,18 +75,21 @@ function addQuestionView(){
     }
 
 
-    let addAnswer = document.createElement("button")
-    addAnswer.textContent = "Legg til svar"
-    answerInputContainer.appendChild(addAnswer);
-    container.appendChild(answerInputContainer);
-    addAnswer.onclick=function() {
-        model.inputs.adminPage.settingsPage.addQuestion.answers.push({title:answerInput.value, counter:0});
-    }
-    //addAnswer.addEventListener("click",) //controller function)
-    let deadlineText= document.createElement("label");
-    deadlineText.setAttribute("for", "deadlineInput");
-    deadlineText.textContent="sett deadline her! ";
-    container.appendChild(deadlineText);
+let addAnswer = document.createElement("button")
+addAnswer.textContent = "Legg til svar"
+answerInputContainer.appendChild(addAnswer);
+container.appendChild(answerInputContainer);
+addAnswer.onclick=function() {
+    if(answerInput.value !== "")
+    model.inputs.adminPage.settingsPage.addQuestion.answers.push({title:answerInput.value, counter:0});
+    answerInput.value="";
+
+}
+//addAnswer.addEventListener("click",) //controller function)
+let deadlineText= document.createElement("label");
+deadlineText.setAttribute("for", "deadlineInput");
+deadlineText.textContent="sett deadline her! ";
+container.appendChild(deadlineText);
 
     let deadlineInput = document.createElement("input");
     deadlineInput.setAttribute("type","date")
@@ -135,21 +138,25 @@ function ResultPageView(){
     let container = document.createElement("div")
 
     let utloging = document.createElement("button")
+    utloging.textContent = 'Log Ut'
     utloging.onclick = function(){
         logout()
     }
 
     let getPdf = document.createElement("button")
+    getPdf.textContent = 'Lagre PDF'
     getPdf.onclick = function(){
         createPdf()
     }
 
     let shareLink = document.createElement("button")
+    shareLink.textContent = 'Del Link'
     shareLink.onclick = function(){
         generateLink()
     }
 
     let settings = document.createElement("button")
+    settings.textContent = 'Innstillinger'
     settings.onclick = function(){
         goToSettings()
     }
@@ -179,6 +186,10 @@ function ResultPageView(){
             let countPercent = document.createElement("label")
             countPercent.textContent = `${model.questions[i].answers[j].counter / voteCount * 100} %`
 
+            if (voteCount == 0){
+                countPercent.textContent = '0%'
+            }
+
             let percentBarParent = document.createElement("div")
 
             let percentBar = document.createElement("div")
@@ -199,6 +210,7 @@ function ResultPageView(){
             
 
             let deleteButton = document.createElement("button")
+            deleteButton.textContent = 'Slett Poll'
             deleteButton.onclick = function(){
                 deleteQuestion(i)
             }
@@ -210,6 +222,7 @@ function ResultPageView(){
             }
 
             let openPoll = document.createElement("button")
+            openPoll.textContent = 'Gjenåpne Poll'
             openPoll.onclick = function(){
                 reOpenPoll(i)
             } 
@@ -232,7 +245,7 @@ function ResultPageView(){
     container.appendChild(qBox)
     
     
-    
+    return container;
     
     
     

@@ -43,9 +43,21 @@ function LandingPageView(){
 function ResultPageView(){
 
     let container = document.createElement("div")
+
     let utloging = document.createElement("button")
+    utloging.onclick = function(){
+        logout()
+    }
+
     let getPdf = document.createElement("button")
+    getPdf.onclick = function(){
+        createPdf()
+    }
+
     let shareLink = document.createElement("button")
+    shareLink.onclick = function(){
+        generateLink()
+    }
 
     let settings = document.createElement("button")
     settings.onclick = function(){
@@ -81,10 +93,10 @@ function ResultPageView(){
             percentBar.style.backgroundColor = 'green'
             percentBar.style.width = model.questions[i].answers[j].counter / voteCount * 100
 
-            aCount.appendChild(percentBar)
             qCard.appendChild(aText)
             qCard.appendChild(aCount)
             qCard.appendChild(countPercent)
+            aCount.appendChild(percentBar)
         }
 
         if(model.questions[i].available == false){

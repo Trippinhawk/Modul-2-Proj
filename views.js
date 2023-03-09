@@ -9,6 +9,9 @@ function updateView(){
         case "LandingPage":
             infoDiv.appendChild(LandingPageView())
             break
+        case "AddQuestion":
+            infoDiv.appendChild(addQuestionView())
+            break
     }
     
 }
@@ -38,7 +41,6 @@ function LandingPageView(){
     return container
 }
 function addQuestionView(){
-model.app.currentView = "AddQuestion";
 
 let container = document.createElement("div");
 container.className = "AddQuestion";
@@ -74,7 +76,7 @@ answerInput.setAttribute("type", "text");
 answerInput.setAttribute("placeholder", "Skriv svar alternativer her")
 container.appendChild(answerInput);
 answerInput.onchange=function() {
-    model.inputs.adminPage.settingsPage.addQuestion.answers.push({title:answerInput.value, counter:0});
+    model.inputs.adminPage.settingsPage.addQuestion.addAnswer = answerInput.value;
 }
 
 
@@ -82,8 +84,12 @@ let addAnswer = document.createElement("button")
 addAnswer.textContent = "Legg til svar"
 answerInputContainer.appendChild(addAnswer);
 container.appendChild(answerInputContainer);
+let flag = false;
 addAnswer.onclick=function() {
+    if(answerInput.value !== "")
     model.inputs.adminPage.settingsPage.addQuestion.answers.push({title:answerInput.value, counter:0});
+    answerInput.value="";
+
 }
 //addAnswer.addEventListener("click",) //controller function)
 let deadlineText= document.createElement("label");

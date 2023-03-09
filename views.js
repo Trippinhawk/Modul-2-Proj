@@ -4,12 +4,13 @@ const infoDiv = document.getElementById('app');
 updateView();
 function updateView(){
     infoDiv.innerHTML = "";
-
-    infoDiv.appendChild(lagetQuestions());
-
     switch(model.app.currentView){
         case "LandingPage":
             infoDiv.appendChild(LandingPageView())
+            break
+        case "SettingsPage":
+            infoDiv.appendChild(lagetQuestions())
+            infoDiv.appendChild(addQuestionView())
             break
     }
     
@@ -35,8 +36,6 @@ function LandingPageView(){
     return container
 }
 function addQuestionView(){
-    model.app.currentView = "AddQuestion";
-
     let container = document.createElement("div");
     container.className = "AddQuestion";
 

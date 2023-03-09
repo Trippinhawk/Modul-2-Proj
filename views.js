@@ -234,12 +234,5 @@ function ResultPageView(){
     container.appendChild(utloging)
     container.appendChild(qBox)
     
-    
-    
-    
-    
-    
-    
-    
-    
+    return container
 }

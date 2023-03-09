@@ -1,42 +1,35 @@
-function getElement(id){
-    return document.getElementById(id);
-}
 
-const infoDiv = getElement('app');
+
+const infoDiv = document.getElementById('app');
 
 function updateView(){
     infoDiv.innerHTML = ""
 
     switch(model.app.currentView){
-        case "landingPage":
+        case "LandingPage":
             infoDiv.appendChild(LandingPageView())
             break
     }
     
 }
-
 function LandingPageView(){
     let container = document.createElement("div")
-
-    
-    
     for (let i = 0; i<model.questions.length; i++){
         let box = document.createElement("div")
-        box.textContent = model.questions[i]
-        for(let j=0;j<model.questions[i].answers.length;i++){
+        box.className="QuestionContainer"
+        box.textContent = model.questions[i].question
+        let list = document.createElement("div")
+        for(let j=0;j<model.questions[i].answers.length;j++){
             let boxChild = document.createElement("div")
-            boxChild.textContent
+            boxChild.textContent = model.questions[i].answers[j].title
+            let inputBoks = document.createElement("input")
+            inputBoks.setAttribute("type","checkbox")
+            inputBoks.textContent = model.questions[i].answers[j].title
+            list.appendChild(inputBoks)
+            box.appendChild(list)
         }
+        container.appendChild(box)
     }
-    let list = document.createElement("ul")
-    list.textContent = model.questions[i].question
-
-    listElement = document.createElement("li")
-
-    list.appendChild(listElement)
-    box.appendChild(list);
-    
-
-    container.appendChild(box)
     return container
 }
+

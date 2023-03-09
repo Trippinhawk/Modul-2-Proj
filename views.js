@@ -7,18 +7,12 @@ function updateView(){
 
     switch(model.app.currentView){
         case "LandingPage":
-            infoDiv.appendChild(LandingPageView());
-            break;
-        case "AddQuestion":
-            infoDiv.appendChild(addQuestionView());
-            break;
-
+            infoDiv.appendChild(LandingPageView())
+            break
     }
     
 }
 function LandingPageView(){
-    model.app.currentView = "Landingpage";
-
     let container = document.createElement("div")
 
     for (let i = 0; i<model.questions.length; i++){
@@ -189,14 +183,17 @@ function ResultPageView(){
             let countPercent = document.createElement("label")
             countPercent.textContent = `${model.questions[i].answers[j].counter / voteCount * 100} %`
 
+            let percentBarParent = document.createElement("div")
+
             let percentBar = document.createElement("div")
             percentBar.style.backgroundColor = 'green'
-            percentBar.style.width = model.questions[i].answers[j].counter / voteCount * 100
+            percentBar.style.width = `${model.questions[i].answers[j].counter / voteCount * 100}%`
 
             qCard.appendChild(aText)
             qCard.appendChild(aCount)
             qCard.appendChild(countPercent)
-            aCount.appendChild(percentBar)
+            qCard.appendChild(percentBarParent)
+            percentBarParent.appendChild(percentBar)
         }
 
         if(model.questions[i].available == false){

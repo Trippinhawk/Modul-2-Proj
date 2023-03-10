@@ -42,20 +42,28 @@ function closeOrOpen(questionIndex){
 
     updateView();
 }
-function createPoll() {
-let questionpoll = model.inputs.adminPage.settingsPage.addQuestion;
-questionpoll.push(model.questions);
-
+function createPollForm() {
 let newQuestionPoll = {
     id: model.questions.length,
     question: model.inputs.adminPage.settingsPage.addQuestion.question,
     answers:model.inputs.adminPage.settingsPage.addQuestion.answers,
     textBox:model.inputs.adminPage.settingsPage.addQuestion.textBox,
-    available: model.inputs.
-    
-
-
-
+    available: true,
+    allowMultiple:true,
+    deadline:model.inputs.adminPage.settingsPage.addQuestion.deadLineTo,
+}
+let newinputs = {
+    id: model.questions.length,
+    addAnswer:'',
+    changeTimeAndDate: false,
+    newDeadline:'',
 }
 
+model.questions.push(newQuestionPoll);
+model.inputs.adminPage.settingsPage.questions.push(newinputs);
+updateView()
+}
+function deleteAnswer(index){
+model.inputs.adminPage.settingsPage.addQuestion.answers.splice(index,1);
+updateView();
 }

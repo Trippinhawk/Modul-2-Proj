@@ -28,6 +28,7 @@ const model={
                         deadLineFrom:'',
                         deadLineTo:'',
                         textBox:false,
+                        allowMultiple:false,
                         
                 },             
             },

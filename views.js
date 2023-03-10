@@ -70,21 +70,48 @@ container.className = "AddQuestion";
     answerInput.setAttribute("type", "text");
     answerInput.setAttribute("placeholder", "Skriv svar alternativer her")
     container.appendChild(answerInput);
+
+    let containerLi = document.createElement("ul");
+    for(let i = 0; i<model.inputs.adminPage.settingsPage.addQuestion.answers.length; i++)
+    {
+        let svarliste = document.createElement("li");
+        svarliste.textContent=model.inputs.adminPage.settingsPage.addQuestion.answers[i].title;
+        containerLi.appendChild(svarliste);
+
+        let deleteButton = document.createElement('button');
+            deleteButton.className = 'deleteButton';
+            deleteButton.textContent = ' X ';
+            svarliste.appendChild(deleteButton)
+            deleteButton.onclick = function() {
+                deleteAnswer(i);
+              };
+
+        
+    }
+    
+    container.appendChild(containerLi)
+    
+
     answerInput.onchange=function() {
         model.inputs.adminPage.settingsPage.addQuestion.answers.push({title:answerInput.value, counter:0});
+        answerInput.value="";
+        updateView()
     }
 
 
-let addAnswer = document.createElement("button")
-addAnswer.textContent = "Legg til svar"
-answerInputContainer.appendChild(addAnswer);
-container.appendChild(answerInputContainer);
-addAnswer.onclick=function() {
-    if(answerInput.value !== "")
-    model.inputs.adminPage.settingsPage.addQuestion.answers.push({title:answerInput.value, counter:0});
-    answerInput.value="";
 
-}
+    let addAnswer = document.createElement("button")
+    addAnswer.textContent = "Legg til svar"
+    answerInputContainer.appendChild(addAnswer);
+    container.appendChild(answerInputContainer);
+    addAnswer.onclick=function() {
+        if(answerInput.value)
+        {
+            model.inputs.adminPage.settingsPage.addQuestion.answers.push({title:answerInput.value, counter:0});
+            answerInput.value="";
+        }
+
+    }
 //addAnswer.addEventListener("click",) //controller function)
 let deadlineText= document.createElement("label");
 deadlineText.setAttribute("for", "deadlineInput");
@@ -96,7 +123,7 @@ container.appendChild(deadlineText);
     deadlineInput.setAttribute("placeholder","skriv inn tidsfrist:");
     deadlineInput.setAttribute("value", model.inputs.adminPage.settingsPage.addQuestion.deadLineTo)
     deadlineInput.setAttribute("id", "deadlineInput");
-    deadlineInput.onchange= function (){
+    deadlineInput.oninput= function (){
         model.inputs.adminPage.settingsPage.addQuestion.deadLineTo = deadlineInput.value;
     };
     container.appendChild(deadlineInput);
@@ -125,7 +152,7 @@ container.appendChild(deadlineText);
     let createPoll = document.createElement("button")
     createPoll.textContent = "Lagre meningsmåling";
     createPoll.onclick = function (){
-        createPoll()
+        createPollForm()
     }
     container.appendChild(createPoll);
     return container;

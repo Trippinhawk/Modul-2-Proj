@@ -43,27 +43,27 @@ function closeOrOpen(questionIndex){
     updateView();
 }
 function createPollForm() {
-let newQuestionPoll = {
-    id: model.questions.length,
-    question: model.inputs.adminPage.settingsPage.addQuestion.question,
-    answers:model.inputs.adminPage.settingsPage.addQuestion.answers,
-    textBox:model.inputs.adminPage.settingsPage.addQuestion.textBox,
-    available: true,
-    allowMultiple:true,
-    deadline:model.inputs.adminPage.settingsPage.addQuestion.deadLineTo,
-}
-let newinputs = {
-    id: model.questions.length,
-    addAnswer:'',
-    changeTimeAndDate: false,
-    newDeadline:'',
-}
+    let newQuestionPoll = {
+        id: model.questions.length,
+        question: model.inputs.adminPage.settingsPage.addQuestion.question,
+        answers:model.inputs.adminPage.settingsPage.addQuestion.answers,
+        textBox:model.inputs.adminPage.settingsPage.addQuestion.textBox,
+        available: true,
+        allowMultiple:true,
+        deadline:model.inputs.adminPage.settingsPage.addQuestion.deadLineTo,
+    }
+    let newinputs = {
+        id: model.questions.length,
+        addAnswer:'',
+        changeTimeAndDate: false,
+        newDeadline:'',
+    }
 
-model.questions.push(newQuestionPoll);
-model.inputs.adminPage.settingsPage.questions.push(newinputs);
-updateView()
+    model.questions.push(newQuestionPoll);
+    model.inputs.adminPage.settingsPage.questions.push(newinputs);
+    updateView()
 }
 function deleteAnswer(index){
-model.inputs.adminPage.settingsPage.addQuestion.answers.splice(index,1);
-updateView();
+    model.inputs.adminPage.settingsPage.addQuestion.answers.splice(index,1);
+    updateView();
 }

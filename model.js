@@ -1,7 +1,7 @@
 const model={
     //view
     app:{
-        currentView:'LandingPage',
+        currentView:'SettingsPage',
         currentUser:null,
     },
     //input
@@ -18,8 +18,8 @@ const model={
         adminPage:{
             settingsPage: {
                 questions: [
-                    {id: 0, addAnswer: '', changeTimeAndDate: ''},
-                    {id: 1, addAnswer: '', changeTimeAndDate: ''},
+                    {id: 0, addAnswer: '', changeTimeAndDate: false, newDeadline:''},
+                    {id: 1, addAnswer: '', changeTimeAndDate: false, newDeadline:''},
                 ],
                 addQuestion:{
                         question:'',

@@ -50,6 +50,8 @@ let newQuestionPoll = {
     id: model.questions.length,
     question: model.inputs.adminPage.settingsPage.addQuestion.question,
     answers:model.inputs.adminPage.settingsPage.addQuestion.answers,
+    textBox:model.inputs.adminPage.settingsPage.addQuestion.textBox,
+    available: model.inputs.
     
 
 

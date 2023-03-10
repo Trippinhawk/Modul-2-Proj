@@ -20,20 +20,16 @@ function nyttSvarInput(questionIndex, inputValue){
 
 }
 
-// function endreDato(questionIndex, endreButtonElement){
-//     //endreButtonElement.textContent = 'Save';
-//     console.log(endreButtonElement);
-//     let tidinput = document.createElement('input');
-//     tidinput.setAttribute('type', 'date');
-//     tidinput.setAttribute('oninput', `newDeadline(${questionIndex}, this.value)`);
+function endreDato(questionIndex){
     
-
-//     endreButtonElement.appendChild(tidinput);
-//     updateView();
-// }
+    model.inputs.adminPage.settingsPage.questions[questionIndex].changeTimeAndDate = true;
+    model.inputs.adminPage.settingsPage.questions[questionIndex].newDeadline = '';
+    updateView();
+}
 
 function newDeadline(questionIndex, dateValue){
     model.questions[questionIndex].deadline = dateValue;
+    model.inputs.adminPage.settingsPage.questions[questionIndex].newDeadline = dateValue;
 
     updateView();
 

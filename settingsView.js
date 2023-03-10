@@ -60,24 +60,34 @@ function lagetQuestions(){
 
         tid.appendChild(deadlineNow);
 
+        let tidEndreButton = document.createElement('button');
+        tidEndreButton.textContent = 'Endre';
+        tidEndreButton.setAttribute('onclick', `endreDato(${i})`);
+        tid.appendChild(tidEndreButton);
+
         let tidinput = document.createElement('input');
-        tidinput.setAttribute('type', 'date');
-        tidinput.setAttribute('onchange', `newDeadline(${i}, this.value)`);
 
+        if (model.inputs.adminPage.settingsPage.questions[i].changeTimeAndDate) {
+
+            
+            tidinput.setAttribute('type', 'date');
+            tidinput.setAttribute('onchange', `newDeadline(${i}, this.value)`);
+
+            
+            tid.appendChild(tidinput);
+        }
+
+        if (model.inputs.adminPage.settingsPage.questions[i].newDeadline && 
+            tidinput.parentElement == tid) {
+            model.inputs.adminPage.settingsPage.questions[i].changeTimeAndDate = false;
+            
+            tid.removeChild(tidinput);
+
+        }
+
+        let buttonContainer = document.createElement('h5');
+        buttonContainer.style.margin = "10px";
         
-        tid.appendChild(tidinput);
-
-        // let tidEndreButton = document.createElement('button');
-        // tidEndreButton.textContent = 'Endre';
-        // tidEndreButton.setAttribute('onclick', `endreDato(${i}, ${tid})`)
-        // // tidEndreButton.onclick = function(){
-        // //     tidEndreButton.textContent = 'Save';
-        // //     updateView();
-
-        // // };
-       
-
-        //tid.appendChild(tidEndreButton);
 
         let låsEllerÅpen = document.createElement('button');
         if (model.questions[i].available) {
@@ -90,12 +100,12 @@ function lagetQuestions(){
             låsEllerÅpen.setAttribute('onclick', `closeOrOpen(${i})`);
         }
 
-
+        buttonContainer.appendChild(låsEllerÅpen);
 
         box.appendChild(giTillatText);
         box.appendChild(nyttSvar);
         box.appendChild(tid);
-        box.appendChild(låsEllerÅpen);
+        box.appendChild(buttonContainer);
         container.appendChild(box);
         
     }

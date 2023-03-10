@@ -46,7 +46,7 @@ function createPollForm() {
 let newQuestionPoll = {
     id: model.questions.length,
     question: model.inputs.adminPage.settingsPage.addQuestion.question,
-    answers:model.inputs.adminPage.settingsPage.addQuestion.answers,
+    answers:[...model.inputs.adminPage.settingsPage.addQuestion.answers],
     textBox:model.inputs.adminPage.settingsPage.addQuestion.textBox,
     available: true,
     allowMultiple:true,
@@ -64,6 +64,6 @@ model.inputs.adminPage.settingsPage.questions.push(newinputs);
 updateView()
 }
 function deleteAnswer(index){
-model.inputs.adminPage.settingsPage.addQuestion.answers.splice(index,1);
-updateView();
+    model.inputs.adminPage.settingsPage.addQuestion.answers.splice(index,1);
+    updateView();
 }
